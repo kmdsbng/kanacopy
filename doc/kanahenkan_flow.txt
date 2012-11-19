@@ -1,0 +1,53 @@
+
+* フォーカスセットされた時
+  * baseSrc, baseKana に現在の値をセット。
+  * appendedKana = ''
+
+* IME ONなら
+  * keyupされたとき(未確定)
+    * もし 入力値が baseSrcより短いなら(backspace, delが押されて消えた可能性ある)
+      * baseSrc, baseKanaに現在の値をセット。
+      * appendedKana = ''
+    * もし 文字列 - baseSrc がすべて かな なら、
+      * それをappendedKanaにセット
+  * keyupされたとき(確定)
+    * 差分適用処理
+
+
+* IME OFFなら
+  * keyupされたとき
+    * 差分適用処理
+
+* onblurなら
+  * 差分適用処理
+
+
+
+* 差分適用処理内容
+  * appendedKana = 変換前文字列 - baseSrc
+  * baseKana + appendedKana を、かな入力欄にセット
+  * baseSrc, baseKana に現在の値をセット。
+  * appendedKana = ''
+
+
+
+(例1)
+baseStr = ''
+baseKana = ''
+appendedKana = 'あいう'
+-> kana = 'あいう'
+
+(例2)
+baseStr = '嗚呼'
+baseKana = 'ああ'
+appendedKana = 'あいう'
+-> kana = 'あああいう'
+
+(例3)
+baseStr = '嗚呼'
+baseKana = 'ああ'
+appendedKana = ''
+-> kana = 'ああ'
+
+
+
